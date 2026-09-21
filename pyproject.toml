@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "open-tutor"
+version = "0.1.0"
+description = "Self-hosted, AI-first learning where 'grounded' is a measurable property enforced by a deterministic verifier."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Open Tutor contributors" }]
+keywords = ["tutor", "learning", "grounding", "verification", "curriculum", "rag", "open-education"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Education",
+]
+dependencies = [
+    "requests>=2.28",
+    "PyYAML>=6.0",
+    "trafilatura>=1.12",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+    "httpx>=0.27",
+    "pypdf>=6.18.0",
+]
+
+[project.optional-dependencies]
+quantum = ["qiskit>=1.0", "qiskit-aer>=0.14", "numpy>=1.24"]
+dev = ["pytest>=7.0", "ruff>=0.4", "mypy>=1.0"]
+subjects = ["sympy>=1.14", "music21>=10.5", "rdkit>=2026.3.6", "python-chess>=1.999", "mypy>=1.0"]
+render = ["playwright>=1.62"]
+
+[project.scripts]
+open-tutor = "open_tutor.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/John-MiracleWorker/open-tutor"
+Repository = "https://github.com/John-MiracleWorker/open-tutor"
+Documentation = "https://github.com/John-MiracleWorker/open-tutor#readme"
+
+[tool.setuptools.packages.find]
+include = ["open_tutor*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+# Preserve historical annotation style while retaining the configured
+# correctness checks. The supported runtime is Python 3.11+; a mechanical
+# annotation modernization is not needed for this release.
+ignore = ["EXE001", "ISC004", "PERF402", "UP006", "UP035", "UP037", "UP045"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
